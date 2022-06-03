@@ -1,15 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function ModifyActivity() {
+function UpdateCosts() {
 
     return(
         <div>
-            <h1>mod screen</h1>
             <NavLink to="/">Back</NavLink>
+            <h1>update screen</h1>
         </div>
         
     )
 }
 
-export default ModifyActivity;
+export default UpdateCosts;

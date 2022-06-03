@@ -5,9 +5,13 @@ function Home() {
 
     return(
         <div>
-            <h1>hi</h1>
-            <NavLink to="/schedule">Schedule</NavLink>
-            <NavLink to="/modify">Modify Activities</NavLink>
+            <div>
+                <h1>Project Planner</h1>
+            </div>
+            <div>
+                <NavLink to="/schedule">Schedule</NavLink>
+                <NavLink to="/update-costs">Update Costs</NavLink>
+            </div>
         </div>
     )
 }

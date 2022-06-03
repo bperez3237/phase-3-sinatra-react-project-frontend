@@ -5,9 +5,8 @@ function Schedule() {
 
     return(
         <div>
-
-            <h1>sched</h1>
             <NavLink to="/">Back</NavLink>
+            <h1>sched</h1>
         </div>
     )
 }
