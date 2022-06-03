@@ -20,10 +20,8 @@ function App() {
     fetch("http://localhost:9292/employees")
       .then((r) => r.json())
       .then((data) => setEmployees(data));
-
   },[]);
-  // console.log(employees,costs,activities)
-
+  
   return (
     <div className="App">
       <Switch>
@@ -34,7 +32,7 @@ function App() {
           <Schedule activities={activities} employees={employees} costs={costs}/>
         </Route>
         <Route path="/update-costs">
-          <UpdateCosts  activities={activities} employees={employees} costs={costs}/>
+          <UpdateCosts activities={activities} employees={employees} costs={costs}/>
         </Route>
       </Switch>
     </div>
