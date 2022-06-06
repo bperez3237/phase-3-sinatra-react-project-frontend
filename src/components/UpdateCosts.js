@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Cost from './Cost'
+import {Button, Container, Form} from 'react-bootstrap'
 
 function UpdateCosts({activities, employees, costs}) {
 
@@ -30,18 +31,21 @@ function UpdateCosts({activities, employees, costs}) {
             <div>
                 <NavLink to="/">Back</NavLink>
                 <h1>update screen</h1>
-                <form>
-                    <input type="text" name="name"></input>
-                    <input type="integer" name="cost"></input>
-                    <input type="integer" name="cost"></input>
-                    <select name="employee">{employeeOptions}</select>
-                    <select name="activity">{activityOptions}</select>
-                    <button>Add Cost</button>
-                </form>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>Add New Cost</Form.Label>
+                        <Form.Control type="text" name="name"></Form.Control>
+                        <Form.Control type="integer" name="cost"></Form.Control>
+                        <Form.Control type="integer" name="cost"></Form.Control>
+                        <Form.Select name="employee">{employeeOptions}</Form.Select>
+                        <Form.Select name="activity">{activityOptions}</Form.Select>
+                        <Button>Add Cost</Button>
+                    </Form.Group>
+                </Form>
             </div>
-            <div>
+            <Container>
                 {costElems}
-            </div>
+            </Container>
         </div>
     )
 }
