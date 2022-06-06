@@ -4,6 +4,9 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import Home from "./Home"
 import Schedule from "./Schedule"
 import UpdateCosts from "./UpdateCosts"
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import 'react-bootstrap'
 
 function App() {
   const [costs,setCosts] = useState([])

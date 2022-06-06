@@ -6,6 +6,7 @@ function UpdateCosts({activities, employees, costs}) {
 
     const costElems = costs.map((cost)=>{
         return <Cost 
+        key={cost.name}
         name={cost.name}
         cost={cost.total_cost}
         category={cost.category}

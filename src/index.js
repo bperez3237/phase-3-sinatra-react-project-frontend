@@ -4,6 +4,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './test/reportWebVitals';
+import 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 ReactDOM.render(
