@@ -5,14 +5,21 @@ import ActivityBar from "./ActivityBar";
 import {Button, Card, Container, Form} from 'react-bootstrap'
 
 function Schedule({activities, employees, costs}) {
-    const [openActivity,setOpenActivity] = useState(false)
-    const activityHours = (activities!=null) ? activities.map((activity)=> activity.estimated_hours).reduce(((previousValue, currentValue) => previousValue + currentValue)) : []
+    const [toggleInfo,setToggleInfo] = useState(false)
+    const [currentActivity,setCurrentActivity] = useState(null)
+    const activityHours = activities.map((activity)=> activity.estimated_hours).reduce(((previousValue, currentValue) => previousValue + currentValue),0)
 
-    console.log(openActivity)
-
-    function handleClick() {
-        setOpenActivity(!openActivity)
-        console.log(openActivity)
+    function handleClick(activity) {
+        if (toggleInfo) {
+            if (currentActivity == activity) {
+                setToggleInfo(!toggleInfo)
+            } else {
+                setCurrentActivity(activity)
+            }
+        } else {
+            setToggleInfo(!toggleInfo)
+            setCurrentActivity(activity)
+        }
     }
 
     let hoursCounter = 0
@@ -24,7 +31,7 @@ function Schedule({activities, employees, costs}) {
         hours={activity.estimated_hours}
         all_activities_hours={activityHours}
         previousHours={hoursCounter-activity.estimated_hours}
-        handleClick={handleClick}
+        handleClick={()=>handleClick(activity)}
         />
     })
 
@@ -44,7 +51,7 @@ function Schedule({activities, employees, costs}) {
                     </Form>
                 </header>
                 <Container>{activityElements}</Container>
-                {openActivity ? <ActivityInfo></ActivityInfo> : <h1>no</h1>}
+                {toggleInfo ? <ActivityInfo name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.total_cost} order={currentActivity.order} /> : <></>}
             </div>
         )
     }
