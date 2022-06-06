@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-bootstrap'
 import { Card } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Button } from "bootstrap";
 
 function ActivityInfo({name, hours, percentComplete, cost, order}) {
 
@@ -13,7 +14,7 @@ function ActivityInfo({name, hours, percentComplete, cost, order}) {
                 hours: {hours}<br></br>
                 %: {percentComplete} <br></br>
                 $: {cost}<br></br>
-                order#: {order}xs
+                order#: {order}
             </Card.Body>
         </Card>
     )

@@ -32,10 +32,10 @@ function App() {
           <Home />
         </Route>
         <Route path="/schedule">
-          <Schedule activities={activities} employees={employees} costs={costs}/>
+          <Schedule activities={activities} setActivities={setActivities} employees={employees} costs={costs}/>
         </Route>
         <Route path="/update-costs">
-          <UpdateCosts activities={activities} employees={employees} costs={costs}/>
+          <UpdateCosts activities={activities} employees={employees} costs={costs} setCosts={setCosts}/>
         </Route>
       </Switch>
     </div>
