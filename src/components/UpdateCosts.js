@@ -7,11 +7,22 @@ import { act } from "react-dom/test-utils";
 
 function UpdateCosts({activities, employees, costs, setCosts}) {
 
+    function handleDelete(id) {
+        fetch(`http://localhost:9292/costs/${id}`, {
+            method: "DELETE",
+          });
+      
+          const updatedCosts = costs.filter((cost)=> cost.id !==id)
+          setCosts(updatedCosts);
+    }
+
     const costElems = costs.map((cost)=>{
         return <Cost 
-        key={cost.created_at}
+        key={cost.id}
+        id={cost.id}
         name={cost.name}
         cost={cost.total_cost}
+        handleDelete={handleDelete}
         category={cost.category}
         employee={cost.employee_id}
         activity={cost.activity_id}

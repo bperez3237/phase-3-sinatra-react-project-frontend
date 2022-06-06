@@ -10,12 +10,7 @@ function CostForm({costs, setCosts, activities, employees}) {
         employee: employees[0].name,
         activity: activities[0].name,
     })
-    // console.log(activities[0].name)
-    function handleClick() {
-        
-    }
 
-    console.log()
     const activityOptions = activities.map((activity)=>{
         return <option value={activity.name}>{activity.name}</option>
     })

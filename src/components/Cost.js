@@ -1,7 +1,8 @@
 import React from "react";
-import {Card} from 'react-bootstrap'
+import {Button, Card} from 'react-bootstrap'
 
-function Cost({name, cost, category, employee, activity, time}) {
+function Cost({name, cost, id, handleDelete, category, employee, activity, time}) {
+
 
     return(
         <Card bg='light'>
@@ -15,6 +16,7 @@ function Cost({name, cost, category, employee, activity, time}) {
                     time: {time}<br></br>
                 </Card.Text>
             </Card.Body>
+            <Button onClick={()=>handleDelete(id)} size="sm">Delete Cost</Button>
         </Card>
     )
 }
