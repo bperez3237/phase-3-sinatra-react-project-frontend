@@ -1,13 +1,20 @@
 import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
-import Activity from './Activity'
+import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
-import {Button, Container, Form} from 'react-bootstrap'
+import {Button, Card, Container, Form} from 'react-bootstrap'
 
 function Schedule({activities, employees, costs}) {
     const [openActivity,setOpenActivity] = useState(false)
-
     const activityHours = (activities!=null) ? activities.map((activity)=> activity.estimated_hours).reduce(((previousValue, currentValue) => previousValue + currentValue)) : []
+
+    console.log(openActivity)
+
+    function handleClick() {
+        setOpenActivity(!openActivity)
+        console.log(openActivity)
+    }
+
     let hoursCounter = 0
     const activityElements = activities.map((activity)=>{
         hoursCounter+=activity.estimated_hours
@@ -17,12 +24,11 @@ function Schedule({activities, employees, costs}) {
         hours={activity.estimated_hours}
         all_activities_hours={activityHours}
         previousHours={hoursCounter-activity.estimated_hours}
+        handleClick={handleClick}
         />
     })
 
-    if (activities) {
-        
-        return(
+   return(
             <div>
                 <header>
                     <NavLink to="/">Back</NavLink>
@@ -38,9 +44,10 @@ function Schedule({activities, employees, costs}) {
                     </Form>
                 </header>
                 <Container>{activityElements}</Container>
+                {openActivity ? <ActivityInfo></ActivityInfo> : <h1>no</h1>}
             </div>
         )
     }
-}
+
 
 export default Schedule;
