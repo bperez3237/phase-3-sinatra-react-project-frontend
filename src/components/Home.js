@@ -8,12 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 function Home() {
 
     return(
-        <Container>
-            <Row><h1 className="d-flex justify-content-center">Project Planner</h1></Row>
-            <Stack >
-                <NavLink className="d-flex justify-content-center" to="/schedule">Schedule</NavLink>
-                <NavLink className="d-flex justify-content-center" to="/update-costs">Update Costs</NavLink>
-            </Stack>
+        <Container className="d-flex flex-column align-items-center justify-content-center" fluid>
+            <Row><Col><h1>Project Planner</h1></Col></Row>
+            <Row><Col><NavLink to="/schedule">Schedule</NavLink></Col></Row>
+            <Row><Col><NavLink  to="/update-costs">Update Costs</NavLink></Col></Row>
         </Container>
     )
 }
