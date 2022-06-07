@@ -11,8 +11,8 @@ function ActivityInfo({name, hours, percentComplete, cost, order, handleOrderCha
         <Card>
             <Card.Header>{name}</Card.Header>
             <Card.Body>
-                Estimated Duration in Hours: {hours}<br></br>
-                Cost to Date: ${cost}<br></br>
+                Estimated Hours: {hours}<br></br>
+                Estimated Cost: ${cost}<br></br>
                 Order: #{order}<br></br>
                 Change Order: 
                 <button className="btn btn-light" value={1} onClick={(e)=>handleOrderChange(e,order,id)}>⬆️</button>

@@ -8,6 +8,7 @@ function Schedule({activities, setActivities, employees, costs}) {
     const [toggleInfo,setToggleInfo] = useState(false)
     const [currentActivity,setCurrentActivity] = useState(null)
 
+    console.log(currentActivity)
     const [state,setState] = useState({
         name: "",
         hours: "",
@@ -44,6 +45,7 @@ function Schedule({activities, setActivities, employees, costs}) {
         const nextOrder = (activities[activities.length -1].order +1)
         const activityObj = {'name': state.name, 'estimated_hours': state.hours, 'percent_complete': 0, 'estimated_cost': state.cost,'order': nextOrder}
 
+        
         fetch(`http://localhost:9292/activities`, {
             method: "POST",
             headers: {
@@ -57,8 +59,7 @@ function Schedule({activities, setActivities, employees, costs}) {
             name: "",
             hours: "",
             cost: ""
-        })
-        
+        })        
     }
 
     function handleOrderChange(e, order, id) {
@@ -147,7 +148,7 @@ function Schedule({activities, setActivities, employees, costs}) {
                 <br></br>
                 <Container>
                     {activityElements}
-                    {toggleInfo ? <ActivityInfo id={currentActivity.id} name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.total_cost} order={currentActivity.order} handleOrderChange={handleOrderChange} handleDelete={handleDelete} /> : <></>}
+                    {toggleInfo ? <ActivityInfo id={currentActivity.id} name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.estimated_cost} order={currentActivity.order} handleOrderChange={handleOrderChange} handleDelete={handleDelete} /> : <></>}
                 </Container>
             </Container>
         )
