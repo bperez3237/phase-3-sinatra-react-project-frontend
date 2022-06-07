@@ -7,7 +7,7 @@ function ActivityBar({name, hours, all_activities_hours, previousHours, handleCl
 
     return (
         <div style={{width: `${width}%`, backgroundColor:"red", marginLeft:`${offset}%`}} onClick={handleClick}>
-            <h3 >{name}</h3>
+            <p style={{color:"black"}}>{name}</p>
         </div>
     )
 

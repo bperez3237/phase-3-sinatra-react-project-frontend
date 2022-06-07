@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
-import {Button, Card, Container, Form} from 'react-bootstrap'
+import {Button, Card, Container, Form, Navbar} from 'react-bootstrap'
 
 function Schedule({activities, setActivities, employees, costs}) {
     const [toggleInfo,setToggleInfo] = useState(false)
@@ -75,10 +75,13 @@ function Schedule({activities, setActivities, employees, costs}) {
     })
 
    return(
-            <div>
-                <header>
-                    <NavLink to="/">Back</NavLink>
-                    <h1>sched</h1>
+            <Container>
+                <Navbar  bg="dark" variant="dark">
+                    <Navbar.Brand style={{marginLeft:'10px'}}>Schedule</Navbar.Brand>
+                    <NavLink style={{color:"#999"}} exact to="/">Home</NavLink>    
+                    <NavLink style={{color:"#999",marginLeft:'10px'}} to="/update-costs">Update Costs</NavLink>
+                </Navbar>
+                <Container>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group >
                             <Form.Label>Create New Activity</Form.Label>
@@ -88,10 +91,13 @@ function Schedule({activities, setActivities, employees, costs}) {
                             <Button type="submit">Add Activity</Button>   
                         </Form.Group>
                     </Form>
-                </header>
-                <Container>{activityElements}</Container>
-                {toggleInfo ? <ActivityInfo name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.total_cost} order={currentActivity.order} /> : <></>}
-            </div>
+                </Container>
+                <br></br>
+                <Container>
+                    {activityElements}
+                    {toggleInfo ? <ActivityInfo name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.total_cost} order={currentActivity.order} /> : <></>}
+                </Container>
+            </Container>
         )
     }
 
