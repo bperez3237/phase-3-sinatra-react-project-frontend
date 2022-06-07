@@ -59,11 +59,11 @@ function CostForm({costs, setCosts, activities, employees}) {
         <Form onSubmit={handleSubmit}>
             <Form.Group >
                 <Form.Label>Add New Cost</Form.Label>
-                <Form.Control name="name" placeholder="name" onChange={handleChange}></Form.Control>
-                <Form.Control name="cost" placeholder="cost" onChange={handleChange}></Form.Control>
-                <Form.Control name="category" placeholder="category" onChange={handleChange}></Form.Control>
-                <Form.Select name="employee"  onChange={handleChange}>{employeeOptions}</Form.Select>
-                <Form.Select name="activity" onChange={handleChange}>{activityOptions}</Form.Select>
+                <Form.Control name="name" placeholder="name" onChange={handleChange} value={state.name}></Form.Control>
+                <Form.Control name="cost" placeholder="cost" onChange={handleChange} value={state.cost}></Form.Control>
+                <Form.Control name="category" placeholder="category" onChange={handleChange} value={state.category}></Form.Control>
+                <Form.Select name="employee"  onChange={handleChange} value={state.employee}>{employeeOptions}</Form.Select>
+                <Form.Select name="activity" onChange={handleChange} value={state.activity}>{activityOptions}</Form.Select>
                 <Button type="submit">Add Cost</Button>
             </Form.Group>
         </Form>

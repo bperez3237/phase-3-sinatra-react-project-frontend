@@ -4,11 +4,10 @@ import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
 import {Button, Container, Form, Navbar} from 'react-bootstrap'
 
-function Schedule({activities, setActivities, employees, costs}) {
+function Schedule({activities, setActivities, employees, costs, setCosts}) {
     const [toggleInfo,setToggleInfo] = useState(false)
     const [currentActivity,setCurrentActivity] = useState(null)
 
-    console.log(currentActivity)
     const [state,setState] = useState({
         name: "",
         hours: "",
@@ -32,7 +31,6 @@ function Schedule({activities, setActivities, employees, costs}) {
 
     function handleChange(e) {
         const value = e.target.value
-        console.log(e.target.value)
         setState({
             ...state,
             [e.target.name]: value
@@ -105,12 +103,16 @@ function Schedule({activities, setActivities, employees, costs}) {
     }
 
     function handleDelete(id) {
-        console.log(id)
         fetch(`http://localhost:9292/activities/${id}`,{
             method: "DELETE",
         })
         const updatedActivities = activities.filter((activity)=> activity.id !==id)
         setActivities(updatedActivities)
+        setToggleInfo(!toggleInfo)
+        fetch('http://localhost:9292/costs')
+            .then((r)=>r.json())
+            .then((data)=>setCosts(data))
+        //need to update costs state to match delete
     }
 
     let hoursCounter = 0
