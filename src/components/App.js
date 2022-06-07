@@ -14,7 +14,7 @@ function App() {
   const [employees,setEmployees] = useState([])
 
   useEffect(()=>{
-    fetch("http://localhost:9292/activities")
+    fetch("http://localhost:9292/activities/order")
       .then((r) => r.json())
       .then((data) => setActivities(data));
     fetch("http://localhost:9292/costs")

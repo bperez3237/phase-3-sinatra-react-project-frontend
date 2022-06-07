@@ -1,9 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Cost from './Cost'
-import {Button, Container, Form, Navbar} from 'react-bootstrap'
+import {Container, Navbar} from 'react-bootstrap'
 import CostForm from "./CostForm";
-import { act } from "react-dom/test-utils";
 
 function UpdateCosts({activities, employees, costs, setCosts}) {
 
@@ -18,7 +17,6 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
 
     const costElems = costs.map((cost)=>{
         return <Cost 
-        style={{marginTop:'5px'}}
         key={cost.id}
         id={cost.id}
         name={cost.name}

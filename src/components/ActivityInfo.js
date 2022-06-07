@@ -5,13 +5,8 @@ import { Card } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button } from "bootstrap";
 
-function ActivityInfo({name, hours, percentComplete, cost, order}) {
-
-    function handleOrderChange(e) {
-        console.log(e.target.value)
-
-    }
-
+function ActivityInfo({name, hours, percentComplete, cost, order, handleOrderChange,id, handleDelete}) {
+    
     return(
         <Card>
             <Card.Header>{name}</Card.Header>
@@ -20,8 +15,10 @@ function ActivityInfo({name, hours, percentComplete, cost, order}) {
                 Cost to Date: ${cost}<br></br>
                 Order: #{order}<br></br>
                 Change Order: 
-                <button className="btn btn-light" value={1} onClick={handleOrderChange}>⬆️</button>
-                <button className="btn btn-light" value={-1} onClick={handleOrderChange}>⬇️</button>
+                <button className="btn btn-light" value={1} onClick={(e)=>handleOrderChange(e,order,id)}>⬆️</button>
+                <button className="btn btn-light" value={-1} onClick={(e)=>handleOrderChange(e,order,id)}>⬇️</button>
+                <br></br>
+                <button className="btn btn-primary" onClick={()=>handleDelete(id)}>Delete Activity</button>
             </Card.Body>
         </Card>
     )

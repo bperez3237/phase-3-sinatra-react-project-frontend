@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
-import {Button, Card, Container, Form, Navbar} from 'react-bootstrap'
+import {Button, Container, Form, Navbar} from 'react-bootstrap'
 
 function Schedule({activities, setActivities, employees, costs}) {
     const [toggleInfo,setToggleInfo] = useState(false)
@@ -61,11 +61,62 @@ function Schedule({activities, setActivities, employees, costs}) {
         
     }
 
+    function handleOrderChange(e, order, id) {
+        e.preventDefault()
+        const newOrder = parseInt(order)+parseInt(e.target.value)
+        if (newOrder > activities.length || newOrder < 1 ) {
+            console.log('invalid order')
+        } else {
+            const swapActivity = activities.find((activity)=> activity.order == newOrder)
+
+            fetch(`http://localhost:9292/activities/${id}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({order:newOrder}),
+            })
+                .then((r)=>r.json())
+                .then((updatedActivity)=> {
+                    const updatedActivities = activities.map((activity)=> {
+                        if(activity.id === updatedActivity.id) {
+                            return updatedActivity
+                        } else if (activity.id === swapActivity.id){
+                            return {...swapActivity,order:order}
+                        } else {
+                            return activity
+                        }
+                    })
+                    setCurrentActivity(updatedActivity)
+                    setActivities(updatedActivities)
+                })
+
+            fetch(`http://localhost:9292/activities/${swapActivity.id}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({order:order}),
+            })
+                .then((r)=>r.json())
+                .then(()=> console.log('swapped'))
+            }
+    }
+
+    function handleDelete(id) {
+        console.log(id)
+        fetch(`http://localhost:9292/activities/${id}`,{
+            method: "DELETE",
+        })
+        const updatedActivities = activities.filter((activity)=> activity.id !==id)
+        setActivities(updatedActivities)
+    }
+
     let hoursCounter = 0
-    const activityElements = activities.map((activity)=>{
+    const activityElements = activities.sort(function(a,b){return a.order - b.order}).map((activity)=>{
         hoursCounter+=activity.estimated_hours
         return <ActivityBar
-        key={activity.created_at+activity.name}
+        key={activity.id}
         name={activity.name}
         hours={activity.estimated_hours}
         all_activities_hours={activityHours}
@@ -82,7 +133,7 @@ function Schedule({activities, setActivities, employees, costs}) {
                     <NavLink style={{color:"#999",marginLeft:'10px'}} to="/update-costs">Update Costs</NavLink>
                 </Navbar>
                 <br></br>
-                <Container>
+                <Container >
                     <Form onSubmit={handleSubmit}>
                         <Form.Group >
                             <Form.Label>Create New Activity</Form.Label>
@@ -96,7 +147,7 @@ function Schedule({activities, setActivities, employees, costs}) {
                 <br></br>
                 <Container>
                     {activityElements}
-                    {toggleInfo ? <ActivityInfo name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.total_cost} order={currentActivity.order} /> : <></>}
+                    {toggleInfo ? <ActivityInfo id={currentActivity.id} name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.total_cost} order={currentActivity.order} handleOrderChange={handleOrderChange} handleDelete={handleDelete} /> : <></>}
                 </Container>
             </Container>
         )
