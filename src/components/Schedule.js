@@ -81,6 +81,7 @@ function Schedule({activities, setActivities, employees, costs}) {
                     <NavLink style={{color:"#999"}} exact to="/">Home</NavLink>    
                     <NavLink style={{color:"#999",marginLeft:'10px'}} to="/update-costs">Update Costs</NavLink>
                 </Navbar>
+                <br></br>
                 <Container>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group >

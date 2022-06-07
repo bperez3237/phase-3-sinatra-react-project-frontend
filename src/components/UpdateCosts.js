@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Cost from './Cost'
-import {Button, Container, Form} from 'react-bootstrap'
+import {Button, Container, Form, Navbar} from 'react-bootstrap'
 import CostForm from "./CostForm";
 import { act } from "react-dom/test-utils";
 
@@ -18,6 +18,7 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
 
     const costElems = costs.map((cost)=>{
         return <Cost 
+        style={{marginTop:'5px'}}
         key={cost.id}
         id={cost.id}
         name={cost.name}
@@ -31,16 +32,21 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
     })
 
     return(
-        <div>
-            <div>
-                <NavLink to="/">Back</NavLink>
-                <h1>update screen</h1>
+        <Container>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand style={{marginLeft:'10px'}}>Update Screen</Navbar.Brand>
+                <NavLink style={{color:"#999"}} exact to="/">Home</NavLink>
+                <NavLink style={{color:"#999",marginLeft:'10px'}} to="/schedule">Schedule</NavLink>
+            </Navbar>
+            <br></br>
+            <Container>
                 <CostForm costs={costs} setCosts={setCosts} activities={activities} employees={employees} />
-            </div>
+            </Container>
+            <br></br>
             <Container>
                 {costElems}
             </Container>
-        </div>
+        </Container>
     )
 }
 
