@@ -10,8 +10,8 @@ function Cost({name, cost, id, handleDelete, category, employee, activity, time}
             <Card.Body>
                 <Card.Text>
                     Total Cost: ${cost}<br></br>
-                    category:{category}<br></br>
-                    employee:{employee}<br></br>
+                    category: {category}<br></br>
+                    employee: {employee}<br></br>
                     activity: {activity}<br></br>
                     time: {time}<br></br>
                 </Card.Text>

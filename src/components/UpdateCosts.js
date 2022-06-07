@@ -16,6 +16,10 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
     }
 
     const costElems = costs.map((cost)=>{
+        const employee = employees.find((employee)=> employee.id===cost.employee_id)
+        const activity = activities.find((activity)=> activity.id===cost.activity_id)
+
+
         return <Cost 
         key={cost.id}
         id={cost.id}
@@ -23,8 +27,8 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
         cost={cost.total_cost}
         handleDelete={handleDelete}
         category={cost.category}
-        employee={cost.employee_id}
-        activity={cost.activity_id}
+        employee={employee.name}
+        activity={activity.name}
         time={cost.created_at}
         />
     })

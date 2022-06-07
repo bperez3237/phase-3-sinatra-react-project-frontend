@@ -109,10 +109,10 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
         const updatedActivities = activities.filter((activity)=> activity.id !==id)
         setActivities(updatedActivities)
         setToggleInfo(!toggleInfo)
+        
         fetch('http://localhost:9292/costs')
             .then((r)=>r.json())
             .then((data)=>setCosts(data))
-        //need to update costs state to match delete
     }
 
     let hoursCounter = 0

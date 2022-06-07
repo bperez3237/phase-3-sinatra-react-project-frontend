@@ -12,11 +12,11 @@ function CostForm({costs, setCosts, activities, employees}) {
     })
 
     const activityOptions = activities.map((activity)=>{
-        return <option value={activity.name}>{activity.name}</option>
+        return <option key={activity.id} value={activity.name}>{activity.name}</option>
     })
 
     const employeeOptions = employees.map((employee)=>{
-        return <option value={employee.name}>{employee.name}</option>
+        return <option key={employee.id} value={employee.name}>{employee.name}</option>
     })
 
 
