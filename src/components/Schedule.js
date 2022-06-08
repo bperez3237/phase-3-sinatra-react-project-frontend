@@ -41,6 +41,14 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
         })
     }
 
+    function checkIfNumber(obj) {
+        if (isNaN(parseInt(obj))) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -53,7 +61,7 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
             'order': nextOrder
         }
 
-        if (activityObj.estimated_hours == 'number' && activityObj.estimated_cost == 'number' && activityObj.name == 'string') {
+        if (checkIfNumber(activityObj.estimated_cost) && checkIfNumber(activityObj.estimated_hours)) {
             fetch(`http://localhost:9292/activities`, {
                 method: "POST",
                 headers: {
@@ -126,6 +134,10 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
         fetch('http://localhost:9292/costs')
             .then((r)=>r.json())
             .then((data)=>setCosts(data))
+
+        fetch('http://localhost:9292/activities')
+            .then((r)=>r.json())
+            .then((data)=>setActivities(data))
     }
 
     let hoursCounter = 0
