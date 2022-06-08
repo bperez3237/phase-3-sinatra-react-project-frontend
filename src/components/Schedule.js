@@ -2,19 +2,23 @@ import React, {useState, useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
-import {Button, Container, Form, Navbar} from 'react-bootstrap'
+import {Alert, Button, Container, Form, Navbar} from 'react-bootstrap'
 
 function Schedule({activities, setActivities, employees, costs, setCosts}) {
     const [toggleInfo,setToggleInfo] = useState(false)
     const [currentActivity,setCurrentActivity] = useState(null)
-
+    const [totalHours,setTotalHours] = useState(0)
     const [state,setState] = useState({
         name: "",
         hours: "",
         cost: ""
     })
 
-    const activityHours = activities.map((activity)=> activity.estimated_hours).reduce(((previousValue, currentValue) => previousValue + currentValue),0)
+    useEffect(()=>{
+        fetch('http://localhost:9292/project_hours')
+            .then((r)=>r.json())
+            .then((hours)=>setTotalHours(hours))
+    },[activities])
 
     function handleClick(activity) {
         if (toggleInfo) {
@@ -41,18 +45,27 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
         e.preventDefault();
 
         const nextOrder = (activities[activities.length -1].order +1)
-        const activityObj = {'name': state.name, 'estimated_hours': state.hours, 'percent_complete': 0, 'estimated_cost': state.cost,'order': nextOrder}
+        const activityObj = {
+            'name': state.name, 
+            'estimated_hours': state.hours, 
+            'percent_complete': 0, 
+            'estimated_cost': state.cost, 
+            'order': nextOrder
+        }
 
-        
-        fetch(`http://localhost:9292/activities`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(activityObj)
-            })
-            .then((r)=>r.json())
-            .then((newActivity)=>setActivities([...activities,newActivity]))
+        if (activityObj.estimated_hours == 'number' && activityObj.estimated_cost == 'number' && activityObj.name == 'string') {
+            fetch(`http://localhost:9292/activities`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(activityObj)
+                })
+                .then((r)=>r.json())
+                .then((newActivity)=>setActivities([...activities,newActivity]))
+        } else {
+            window.alert('Invalid Entry Type. Try again!')
+        }
         setState({
             name: "",
             hours: "",
@@ -116,13 +129,13 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
     }
 
     let hoursCounter = 0
-    const activityElements = activities.sort(function(a,b){return a.order - b.order}).map((activity)=>{
+    const activityElements = activities.sort((a,b)=> a.order - b.order).map((activity)=>{
         hoursCounter+=activity.estimated_hours
         return <ActivityBar
         key={activity.id}
         name={activity.name}
         hours={activity.estimated_hours}
-        all_activities_hours={activityHours}
+        all_activities_hours={totalHours}
         previousHours={hoursCounter-activity.estimated_hours}
         handleClick={()=>handleClick(activity)}
         />

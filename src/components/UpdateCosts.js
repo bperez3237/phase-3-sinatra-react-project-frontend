@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import Cost from './Cost'
 import {Container, Navbar} from 'react-bootstrap'
 import CostForm from "./CostForm";
 
 function UpdateCosts({activities, employees, costs, setCosts}) {
+    const [totalCost, setTotalCost] = useState(0)
+
+    useEffect(()=>{
+        fetch(`http://localhost:9292/project_cost`)
+            .then((r)=>r.json())
+            .then((total)=> setTotalCost(total))
+    },[costs])
+    
 
     function handleDelete(id) {
         fetch(`http://localhost:9292/costs/${id}`, {
@@ -12,10 +20,6 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
           });
           const updatedCosts = costs.filter((cost)=> cost.id !==id)
           setCosts(updatedCosts);
-    }
-
-    function getProjectCost() {
-        return costs.map((cost)=>cost.total_cost).reduce(((prevValue,currValue)=>prevValue+currValue),0)
     }
 
     const costElems = costs.map((cost)=>{
@@ -43,7 +47,7 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
                 <NavLink style={{color:"#999",marginLeft:'10px'}} to="/schedule">Schedule</NavLink>
             </Navbar>
             <br></br>
-            <h1 className="d-flex justify-content-center" style={{marginTop:'50px'}}>Total Project Cost: ${getProjectCost()}</h1>
+            <h1 className="d-flex justify-content-center" style={{marginTop:'50px'}}>Total Project Cost: ${totalCost}</h1>
             <br></br>
             <Container >
                 <CostForm costs={costs} setCosts={setCosts} activities={activities} employees={employees} />

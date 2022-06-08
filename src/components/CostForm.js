@@ -32,7 +32,6 @@ function CostForm({costs, setCosts, activities, employees}) {
 
         const employee = employees.find((obj) => obj.name == state.employee)
         const activity = activities.find((obj)=> obj.name == state.activity)
-
         const costObj = {'name': state.name, 'total_cost': state.cost, 'category': state.category, 'employee_id': employee.id,'activity_id': activity.id}
 
         fetch(`http://localhost:9292/costs`, {
