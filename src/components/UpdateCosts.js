@@ -14,6 +14,10 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
           setCosts(updatedCosts);
     }
 
+    function getProjectCost() {
+        return costs.map((cost)=>cost.total_cost).reduce(((prevValue,currValue)=>prevValue+currValue),0)
+    }
+
     const costElems = costs.map((cost)=>{
         const employee = employees.find((employee)=> employee.id===cost.employee_id)
         const activity = activities.find((activity)=> activity.id===cost.activity_id)
@@ -39,7 +43,9 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
                 <NavLink style={{color:"#999",marginLeft:'10px'}} to="/schedule">Schedule</NavLink>
             </Navbar>
             <br></br>
-            <Container>
+            <h1 className="d-flex justify-content-center" style={{marginTop:'50px'}}>Total Project Cost: ${getProjectCost()}</h1>
+            <br></br>
+            <Container >
                 <CostForm costs={costs} setCosts={setCosts} activities={activities} employees={employees} />
             </Container>
             <br></br>
