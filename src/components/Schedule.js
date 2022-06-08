@@ -130,7 +130,7 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
 
    return(
             <Container>
-                <Navbar  bg="dark" variant="dark">
+                <Navbar fixed="top" bg="dark" variant="dark">
                     <Navbar.Brand style={{marginLeft:'10px'}}>Schedule</Navbar.Brand>
                     <NavLink style={{color:"#999"}} exact to="/">Home</NavLink>    
                     <NavLink style={{color:"#999",marginLeft:'10px'}} to="/update-costs">Update Costs</NavLink>

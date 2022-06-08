@@ -13,7 +13,7 @@ function Cost({name, cost, id, handleDelete, category, employee, activity, time}
                     category: {category}<br></br>
                     employee: {employee}<br></br>
                     activity: {activity}<br></br>
-                    time: {time}<br></br>
+                    time: {time.slice(0,10)}<br></br>
                 </Card.Text>
             </Card.Body>
             <Button onClick={()=>handleDelete(id)} size="sm">Delete Cost</Button>

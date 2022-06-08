@@ -1,5 +1,4 @@
 import React, { useState} from "react";
-import Cost from "./Cost";
 import {Button, Form } from 'react-bootstrap'
 
 function CostForm({costs, setCosts, activities, employees}) {
