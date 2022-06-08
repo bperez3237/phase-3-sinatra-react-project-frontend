@@ -34,15 +34,19 @@ function CostForm({costs, setCosts, activities, employees}) {
         const activity = activities.find((obj)=> obj.name == state.activity)
         const costObj = {'name': state.name, 'total_cost': state.cost, 'category': state.category, 'employee_id': employee.id,'activity_id': activity.id}
 
-        fetch(`http://localhost:9292/costs`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(costObj)
-            })
-            .then((r)=>r.json())
-            .then((newCost)=>setCosts([...costs,newCost]))
+        if (costObj.name=='string'&&costObj.total_cost=='number'&&costObj.category=='string') {
+            fetch(`http://localhost:9292/costs`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(costObj)
+                })
+                .then((r)=>r.json())
+                .then((newCost)=>setCosts([...costs,newCost]))
+        } else {
+            window.alert('Invalid Entry Type. Try again!')
+        }
         setState({
             name: "",
             cost: "",
