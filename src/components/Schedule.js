@@ -54,12 +54,7 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
         e.preventDefault();
 
         const nextOrder = (activities[activities.length -1].order +1)
-        const activityObj = {
-            'name': state.name, 
-            'estimated_hours': state.hours, 
-            'percent_complete': 0, 
-            'estimated_cost': state.cost, 
-            'order': nextOrder
+        const activityObj = {'name': state.name, 'estimated_hours': state.hours, 'percent_complete': 0, 'estimated_cost': state.cost, 'order': nextOrder
         }
 
         if (checkIfNumber(activityObj.estimated_cost) && checkIfNumber(activityObj.estimated_hours)) {
@@ -102,20 +97,21 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
     function handleDelete(id) {
         fetch(`http://localhost:9292/activities/${id}`,{
             method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        const updatedActivities = activities.filter((activity)=> activity.id !==id)
-        setActivities(updatedActivities)
+            .then((r)=>r.json())
+            .then((obj)=> {
+                setActivities(obj.activities)
+                setCosts(obj.costs)
+            })
+
         setToggleInfo(!toggleInfo)
         
-        fetch('http://localhost:9292/costs')
-            .then((r)=>r.json())
-            .then((data)=>setCosts(data))
 
-        fetch('http://localhost:9292/activities')
-            .then((r)=>r.json())
-            .then((data)=>setActivities(data))
     }
-
+    
     let hoursCounter = 0
     const activityElements = activities.sort((a,b)=> a.order - b.order).map((activity)=>{
         hoursCounter+=activity.estimated_hours
