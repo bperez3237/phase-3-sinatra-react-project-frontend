@@ -3,10 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-bootstrap'
 import { Card, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button } from "bootstrap";
-import Cost from "./Cost";
 
-function ActivityInfo({name, hours, percentComplete, cost, order, handleOrderChange,id, handleDelete}) {
+function ActivityInfo({name, hours, cost, order, handleOrderChange,id, handleDelete}) {
     const [costToDate, setCostToDate] = useState([])
 
 

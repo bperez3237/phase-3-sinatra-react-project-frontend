@@ -2,11 +2,10 @@ import React, {useState, useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
-import {Alert, Button, Container, Form, Navbar} from 'react-bootstrap'
-import { act } from "react-dom/test-utils";
+import { Container, Navbar} from 'react-bootstrap'
 import ActivityForm from "./ActivityForm";
 
-function Schedule({activities, setActivities, employees, costs, setCosts}) {
+function Schedule({activities, setActivities, setCosts}) {
     const [toggleInfo,setToggleInfo] = useState(false)
     const [currentActivity,setCurrentActivity] = useState(null)
     const [totalHours,setTotalHours] = useState(0)
@@ -19,7 +18,7 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
 
     function handleClick(activity) {
         if (toggleInfo) {
-            if (currentActivity == activity) {
+            if (currentActivity === activity) {
                 setToggleInfo(!toggleInfo)
             } else {
                 setCurrentActivity(activity)
@@ -82,6 +81,8 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
                     <NavLink style={{color:"#999"}} exact to="/">Home</NavLink>    
                     <NavLink style={{color:"#999",marginLeft:'10px'}} to="/update-costs">Update Costs</NavLink>
                 </Navbar>
+                <br></br>
+                    <h1 className="d-flex justify-content-center" style={{marginTop:'50px'}}>Total Project Duration: {totalHours} Hours</h1>
                 <br></br>
                 <ActivityForm activities={activities} setActivities={setActivities}/>
                 <br></br>

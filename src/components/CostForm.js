@@ -30,11 +30,11 @@ function CostForm({costs, setCosts, activities, employees}) {
     function handleSubmit(e) {
         e.preventDefault();
 
-        const employee = employees.find((obj) => obj.name == state.employee)
-        const activity = activities.find((obj)=> obj.name == state.activity)
+        const employee = employees.find((obj) => obj.name === state.employee)
+        const activity = activities.find((obj)=> obj.name === state.activity)
         const costObj = {'name': state.name, 'total_cost': state.cost, 'category': state.category, 'employee_id': employee.id,'activity_id': activity.id}
 
-        if (costObj.name=='string'&&costObj.total_cost=='number'&&costObj.category=='string') {
+        if (costObj.name==='string'&&costObj.total_cost==='number'&&costObj.category==='string') {
             fetch(`http://localhost:9292/costs`, {
                 method: "POST",
                 headers: {

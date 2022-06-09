@@ -47,7 +47,7 @@ function UpdateCosts({activities, employees, costs, setCosts}) {
                 <NavLink style={{color:"#999",marginLeft:'10px'}} to="/schedule">Schedule</NavLink>
             </Navbar>
             <br></br>
-            <h1 className="d-flex justify-content-center" style={{marginTop:'50px'}}>Total Project Cost: ${totalCost}</h1>
+                <h1 className="d-flex justify-content-center" style={{marginTop:'50px'}}>Total Project Cost: ${totalCost}</h1>
             <br></br>
             <Container >
                 <CostForm costs={costs} setCosts={setCosts} activities={activities} employees={employees} />
