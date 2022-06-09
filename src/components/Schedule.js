@@ -4,16 +4,12 @@ import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
 import {Alert, Button, Container, Form, Navbar} from 'react-bootstrap'
 import { act } from "react-dom/test-utils";
+import ActivityForm from "./ActivityForm";
 
 function Schedule({activities, setActivities, employees, costs, setCosts}) {
     const [toggleInfo,setToggleInfo] = useState(false)
     const [currentActivity,setCurrentActivity] = useState(null)
     const [totalHours,setTotalHours] = useState(0)
-    const [state,setState] = useState({
-        name: "",
-        hours: "",
-        cost: ""
-    })
 
     useEffect(()=>{
         fetch('http://localhost:9292/project_hours')
@@ -32,49 +28,6 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
             setToggleInfo(!toggleInfo)
             setCurrentActivity(activity)
         }
-    }
-
-    function handleChange(e) {
-        const value = e.target.value
-        setState({
-            ...state,
-            [e.target.name]: value
-        })
-    }
-
-    function checkIfNumber(obj) {
-        if (isNaN(parseInt(obj))) {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        const nextOrder = (activities[activities.length -1].order +1)
-        const activityObj = {'name': state.name, 'estimated_hours': state.hours, 'percent_complete': 0, 'estimated_cost': state.cost, 'order': nextOrder
-        }
-
-        if (checkIfNumber(activityObj.estimated_cost) && checkIfNumber(activityObj.estimated_hours)) {
-            fetch(`http://localhost:9292/activities`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(activityObj)
-                })
-                .then((r)=>r.json())
-                .then((newActivity)=>setActivities([...activities,newActivity]))
-        } else {
-            window.alert('Invalid Entry Type. Try again!')
-        }
-        setState({
-            name: "",
-            hours: "",
-            cost: ""
-        })        
     }
 
     function handleOrderChange(e, order, id) {
@@ -106,10 +59,7 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
                 setActivities(obj.activities)
                 setCosts(obj.costs)
             })
-
         setToggleInfo(!toggleInfo)
-        
-
     }
     
     let hoursCounter = 0
@@ -133,17 +83,7 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
                     <NavLink style={{color:"#999",marginLeft:'10px'}} to="/update-costs">Update Costs</NavLink>
                 </Navbar>
                 <br></br>
-                <Container >
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group >
-                            <Form.Label>Create New Activity</Form.Label>
-                            <Form.Control name="name" placeholder="name" value={state.name} onChange={handleChange}></Form.Control>
-                            <Form.Control name="hours" placeholder="hours" value={state.hours} onChange={handleChange}></Form.Control>
-                            <Form.Control name="cost" placeholder="cost" value={state.cost} onChange={handleChange}></Form.Control>
-                            <Button type="submit">Add Activity</Button>   
-                        </Form.Group>
-                    </Form>
-                </Container>
+                <ActivityForm activities={activities} setActivities={setActivities}/>
                 <br></br>
                 <Container>
                     {activityElements}
