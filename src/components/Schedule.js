@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import ActivityInfo from './ActivityInfo'
 import ActivityBar from "./ActivityBar";
 import {Alert, Button, Container, Form, Navbar} from 'react-bootstrap'
+import { act } from "react-dom/test-utils";
 
 function Schedule({activities, setActivities, employees, costs, setCosts}) {
     const [toggleInfo,setToggleInfo] = useState(false)
@@ -84,43 +85,18 @@ function Schedule({activities, setActivities, employees, costs, setCosts}) {
     function handleOrderChange(e, order, id) {
         e.preventDefault()
         const newOrder = parseInt(order)+parseInt(e.target.value)
-        if (newOrder > activities.length || newOrder < 1 ) {
-            console.log('invalid order')
-        } else {
-            const swapActivity = activities.find((activity)=> activity.order == newOrder)
-
-            fetch(`http://localhost:9292/activities/${id}`, {
-                method: "PATCH",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({order:newOrder}),
+        fetch(`http://localhost:9292/activities/${id}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({order:newOrder}),
+        })
+            .then((r)=>r.json())
+            .then((activities)=> {
+                setCurrentActivity(activities.find((activity)=> activity.id===id))
+                setActivities(activities)
             })
-                .then((r)=>r.json())
-                .then((updatedActivity)=> {
-                    const updatedActivities = activities.map((activity)=> {
-                        if(activity.id === updatedActivity.id) {
-                            return updatedActivity
-                        } else if (activity.id === swapActivity.id){
-                            return {...swapActivity,order:order}
-                        } else {
-                            return activity
-                        }
-                    })
-                    setCurrentActivity(updatedActivity)
-                    setActivities(updatedActivities)
-                })
-
-            fetch(`http://localhost:9292/activities/${swapActivity.id}`, {
-                method: "PATCH",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({order:order}),
-            })
-                .then((r)=>r.json())
-                .then(()=> console.log('swapped'))
-            }
     }
 
     function handleDelete(id) {
