@@ -11,6 +11,13 @@ import 'react-bootstrap'
 function App() {
   const [costs,setCosts] = useState([])
   const [activities,setActivities] = useState([])
+  const [employees,setEmployees] = useState([])
+
+   useEffect(()=>{
+        fetch(`http://localhost:9292/employees`)
+            .then((r)=> r.json())
+            .then((data)=> setEmployees(data))
+   },[])
 
   useEffect(()=>{
     fetch("http://localhost:9292/activities")
@@ -20,6 +27,8 @@ function App() {
       .then((r) => r.json())
       .then((data) => setCosts(data));
     ;},[])
+
+    
   
   return (
     <div className="App">
@@ -31,7 +40,7 @@ function App() {
           <Schedule activities={activities} setActivities={setActivities} setCosts={setCosts}/>
         </Route>
         <Route path="/update-costs">
-          <UpdateCosts activities={activities} costs={costs} setCosts={setCosts}/>
+          <UpdateCosts activities={activities} employees={employees} costs={costs} setCosts={setCosts}/>
         </Route>
       </Switch>
     </div>
