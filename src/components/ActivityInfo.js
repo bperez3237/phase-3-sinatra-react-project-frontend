@@ -28,8 +28,8 @@ function ActivityInfo({name, hours, cost, order, handleOrderChange,id, handleDel
                 Actual Costs: <Container>{costElems}</Container>
                 Order: #{order}<br></br>
                 Change Order: 
-                <button className="btn btn-light" value={1} onClick={(e)=>handleOrderChange(e,order,id)}>⬆️</button>
-                <button className="btn btn-light" value={-1} onClick={(e)=>handleOrderChange(e,order,id)}>⬇️</button>
+                <button className="btn btn-light" value={-1} onClick={(e)=>handleOrderChange(e,order,id)}>⬆️</button>
+                <button className="btn btn-light" value={1} onClick={(e)=>handleOrderChange(e,order,id)}>⬇️</button>
                 <br></br>
                 <button className="btn btn-primary" onClick={()=>handleDelete(id)}>Delete Activity</button>
             </Card.Body>
