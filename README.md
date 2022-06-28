@@ -4,11 +4,16 @@ This app helps track activities and costs for a project. One page displays the a
 
 ## Getting started
 
-Clone the backend for server: [sinatra-react-project-backend]
-(https://github.com/bperez3237/phase-3-sinatra-react-project-backend)
+Clone the backend for server: [sinatra-react-project-backend](https://github.com/bperez3237/phase-3-sinatra-react-project-backend)
 
 After starting the backend server, to start react page run:
 
 ```bash
 npm start
 ```
+
+## Roadmap
+
+Currently the app allows tracking of one set of activities, one after another. In reality, these would often overlap or occur simluatenously. Adding the ability to have multiple activities at once would add good functionality. 
+
+
