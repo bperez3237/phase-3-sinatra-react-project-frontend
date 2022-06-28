@@ -4,27 +4,18 @@ import 'react-bootstrap'
 import { Card, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function ActivityInfo({name, hours, cost, order, handleOrderChange,id, handleDelete}) {
-    const [costToDate, setCostToDate] = useState([])
+function ActivityInfo({name, hours, costs, order, handleOrderChange,id, handleDelete}) {
 
-
-    useEffect(()=> {
-        fetch(`http://localhost:9292/activities/${id}/costs`)
-            .then((r)=>r.json())
-            .then((data)=>setCostToDate(data))
-    },[id])
-    
-    const costElems = costToDate.map((cost)=>{
+    const costElems = costs.map((cost)=>{
         return <p key={cost.id}>Description: {cost.name}; Cost: ${cost.total_cost}</p>
     })
-
+    
     return(
         <>
         <Card>
             <Card.Header>{name}</Card.Header>
             <Card.Body>
                 Estimated Hours: {hours}<br></br>
-                Estimated Cost: ${cost}<br></br>
                 Actual Costs: <Container>{costElems}</Container>
                 Order: #{order}<br></br>
                 Change Order: 

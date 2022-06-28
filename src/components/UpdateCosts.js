@@ -4,8 +4,16 @@ import Cost from './Cost'
 import {Container, Navbar} from 'react-bootstrap'
 import CostForm from "./CostForm";
 
-function UpdateCosts({activities, employees, costs, setCosts}) {
+function UpdateCosts({activities, costs, setCosts}) {
     const [totalCost, setTotalCost] = useState(0)
+    const [employees,setEmployees] = useState([])
+
+   useEffect(()=>{
+        fetch(`http://localhost:9292/employees`)
+            .then((r)=> r.json())
+            .then((data)=> setEmployees(data))
+   },[])
+    
 
     useEffect(()=>{
         fetch(`http://localhost:9292/project_cost`)

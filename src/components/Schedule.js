@@ -88,7 +88,7 @@ function Schedule({activities, setActivities, setCosts}) {
                 <br></br>
                 <Container>
                     {activityElements}
-                    {toggleInfo ? <ActivityInfo id={currentActivity.id} name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} cost={currentActivity.estimated_cost} order={currentActivity.order} handleOrderChange={handleOrderChange} handleDelete={handleDelete} /> : <></>}
+                    {toggleInfo ? <ActivityInfo id={currentActivity.id} name={currentActivity.name} hours={currentActivity.estimated_hours} percentComplete={currentActivity.percent_complete} costs={currentActivity.costs} order={currentActivity.order} handleOrderChange={handleOrderChange} handleDelete={handleDelete} /> : <></>}
                 </Container>
             </Container>
         )
